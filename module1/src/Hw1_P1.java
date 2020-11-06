@@ -2,25 +2,46 @@ import java.util.Arrays;
 
 public class Hw1_P1 {
 
+    /**
+     * Description:
+     *  The stats method takes a Integer array and computes the average
+     * and finds the min and max , it then prints these values
+     * Inputs:
+     *  @param a : Integer array
+     * Outputs:
+     *  None
+     */
     public static void stats(int[] a) {
-        int sum = 0;
-        int count = a.length;
+        double average = 0;
+        int tempCnt = 1;
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
-        // Loop through the array and add to sum and find min and max
+        // Loop through the array and find average and find min and max
         for (int i: a){
             if (i > max)
                 max = i;
             if (i<min)
                 min = i;
-            sum+=i;
+
+            // We add the contribution of each element to calculate total average
+            average += (i-average) / tempCnt;
+            tempCnt++;
         }
-        // Calculate average
-        float average = (float)sum/count;
+
         // Print the result
         System.out.println(String.format("average = %.2f, min = %d , max = %d", average, min, max));
     }
 
+    /**
+     * Description:
+     *  The subarray method takes a array and returns a subarray between the two given indexes
+     * Inputs:
+     *  @param a : Integer array
+     *  @param from : Starting index
+     *  @param to : Ending index
+     * Output:
+     *  None
+     */
     public static void subarray(int[] a, int from, int to) {
         // error check w/o using Java's exception handling
         if (from < 0 || to >= a.length) {
@@ -39,6 +60,10 @@ public class Hw1_P1 {
 
     }
 
+    /**
+     * Main method
+     * @param args
+     */
     public static void main(String[] args) {
 
         // test
@@ -48,7 +73,17 @@ public class Hw1_P1 {
         stats(a);
         subarray(a, 1, 4);
 
-        // test with other arrays
+        // array with negatives and index out of bound
+        int[] b = {-1,0,10,-2};
+        System.out.println("\nGiven array is: " + Arrays.toString(b));
+        stats(b);
+        subarray(b, 1, 4);
+
+
+        // Test with huge numbers
+        int[] c = {999999999,999999999,999999999,999999999};
+        System.out.println("\nGiven array is: " + Arrays.toString(c));
+        stats(c);
     }
 
 }
