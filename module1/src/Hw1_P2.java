@@ -12,14 +12,25 @@ public class Hw1_P2 {
      * @param args
      */
     public static void main(String[] args) {
+        // The complete input file path is the passed as the argument
+        if (args.length!=1) {
+            System.err.println("Error : Incorrect number of arguments" +
+                    ", please provide the complete path of input file");
+            System.exit(1);
+        }
+        String inputFile = args[0];
+
         // Read the employee_input.txt which is at the same folder as this code
-        readFilePopulateArray("employee_input.txt");
-        System.out.println("Employees earning more than $70000:\n");
+        readFilePopulateArray(inputFile);
+
+        // Test for employees earning more than $70000
         employeesAbove(employeeArray,70000);
 
-        // Second test to test for employees 
-        System.out.println("Employees earning more than $10000000:");
-        employeesAbove(employeeArray,10000000);
+        // Second test to test for employees earning more than $0
+        employeesAbove(employeeArray,0);
+
+        // Second test to test for employees earning more than $1,000,000
+        employeesAbove(employeeArray,1000000);
     }
 
 
@@ -28,8 +39,7 @@ public class Hw1_P2 {
      * @param fileName : The file name to read
      */
     public static void readFilePopulateArray(String fileName){
-        URL path = Hw1_P2.class.getResource(fileName);
-        File file = new File(path.getFile());
+        File file = new File(fileName);
 
         // Try reading  the file and doing some actions
         try {
@@ -64,11 +74,13 @@ public class Hw1_P2 {
     public static void employeesAbove (SalariedEmployee[ ] empArray, double threshold)
     {
         // loop through the input array
+        System.out.printf("Employees earning more than $%d:\n\n",(long)threshold);
         for (SalariedEmployee salEmp : employeeArray){
             // Print if the salary is greater than threshold
             if (salEmp.getSalary() > threshold){
                 System.out.println(salEmp);
             }
         }
+        System.out.println("=============== End of output ====================\n");
     }
 }
