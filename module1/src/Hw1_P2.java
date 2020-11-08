@@ -12,21 +12,20 @@ public class Hw1_P2 {
      * @param args
      */
     public static void main(String[] args) {
+        // Read the employee_input.txt which is at the same folder as this code
         readFilePopulateArray("employee_input.txt");
         System.out.println("Employees earning more than $70000:\n");
         employeesAbove(employeeArray,70000);
 
+        // Second test to test for employees 
         System.out.println("Employees earning more than $10000000:");
         employeesAbove(employeeArray,10000000);
     }
 
+
     /**
-     * Description:
-     *  Reads a file and populates the SalariedEmployee array
-     * Inputs:
-     *  fileName : String
-     * Outputs:
-     *  None
+     * Reads a file and populates the SalariedEmployee array
+     * @param fileName : The file name to read
      */
     public static void readFilePopulateArray(String fileName){
         URL path = Hw1_P2.class.getResource(fileName);
@@ -55,15 +54,12 @@ public class Hw1_P2 {
 
     }
 
+
     /**
-     * Description:
-     *  Selects from empArray only those employees who earn more than the given threshold amount
-     *  , and displays their empId, name, salary, and monthly payment
-     * Inputs:
-     *  empArray: An array of SalariedEmployee objects
-     *  threshold: A salary threshold
-     * Outputs:
-     *  None
+     * Selects from empArray only those employees who earn more than the given threshold amount
+     * and displays their empId, name, salary, and monthly payment
+     * @param empArray : The Salaried Employee array
+     * @param threshold : The salary threshold
      */
     public static void employeesAbove (SalariedEmployee[ ] empArray, double threshold)
     {
