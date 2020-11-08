@@ -78,7 +78,7 @@ public class Hw1_P2 {
         for (SalariedEmployee salEmp : employeeArray){
             // Print if the salary is greater than threshold
             if (salEmp.getSalary() > threshold){
-                System.out.println(salEmp);
+                salEmp.employeeInfo();
             }
         }
         System.out.println("=============== End of output ====================\n");
