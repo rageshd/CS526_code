@@ -42,7 +42,18 @@ public class Hw2_P4 {
         if ( currentIndex > a.length -1 ){
             return;
         }
-        if (a[currentIndex] )
+        if (a[currentIndex]%2 == 0 ){
+            int temp = a[currentIndex];
+            a[currentIndex] = a[swapIndex];
+            a[swapIndex] = temp;
+            swapIndex++;
+            currentIndex++;
+        }
+        else
+            currentIndex++;
+
+        recurseEvenBeforeOdd(a, swapIndex, currentIndex);
+
     }
 
     public static void main(String[] args) {

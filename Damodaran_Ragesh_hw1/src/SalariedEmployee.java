@@ -38,7 +38,7 @@ public class SalariedEmployee extends Employee{
 
     /**
      * Convert the class instance to a string
-     * @return String
+     * @return String : Formatted instance of the class
      */
     @Override
     public String toString() {
@@ -48,12 +48,8 @@ public class SalariedEmployee extends Employee{
     }
 
     /**
-     * Description:
-     *  Returns the monthly salary
-     * Inputs:
-     *  None
-     * Outputs:
-     *  monthly payment : double
+     * Returns the monthly salary
+     * @return double : Monthly pay
      */
     public double monthlyPayment(){
         double monthlyPay = salary/12;
