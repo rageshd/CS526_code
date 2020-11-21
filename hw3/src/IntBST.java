@@ -95,12 +95,12 @@ public class IntBST extends NodeBinaryTree<Integer> {
 	 * @return
 	 */
 	public static IntBST recurBinaryTree(int[] a, int start, int end){
-		// Base case
-		if (start > end)
-			return null;
-
 		// New instance of tree
 		IntBST tree = new IntBST();
+
+		// Base case
+		if (start > end)
+			return tree;
 
 		// Calculate the mid point and assign the root
 		int mid = (start + end)/2;
@@ -110,14 +110,15 @@ public class IntBST extends NodeBinaryTree<Integer> {
 		IntBST leftTree = recurBinaryTree(a, start, mid -1);
 		IntBST rightTree = recurBinaryTree(a, mid + 1, end);
 
+
 		// Add the left tree to the root
-		if (leftTree != null) {
+		if (!leftTree.isEmpty()) {
 			root.setLeft(leftTree.root);
 			tree.size += leftTree.size;
 		}
 
 		// Add the right tree to the root
-		if (rightTree != null) {
+		if (!rightTree.isEmpty()) {
 			root.setRight(rightTree.root);
 			tree.size += rightTree.size;
 		}
