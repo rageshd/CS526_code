@@ -82,46 +82,47 @@ public class IntBST extends NodeBinaryTree<Integer> {
 	// Input: an array of integers, a; size of a is 2^k - 1, k = 1, 2, . . .
 	//        integers in the array are sorted in non-decreasing order
 	// Output: an IntBST, which is a "complete" binary search tree with all integers in the array a
-	//        
+	//
 	public static IntBST makeBinaryTree(int[] a){
 		return recurBinaryTree(a, 0 , a.length-1);
 	}
 
-//	public static Node recurBinaryTree(int[] a, int start, int end){
-//	  	// Base case
-//	  	if (start>end)
-//	  		return null;
-//	  	int mid = (start + end)/2;
-//		IntBST tree = new IntBST();
-//		Node root = tree.addRoot(a[mid]);
-//		root.setLeft(recurBinaryTree(a, start, mid -1));
-//		root.setRight(recurBinaryTree(a, mid + 1, end));
-//		return root;
-//	}
-
+	/**
+	 * Recursively create the BST
+	 * @param a
+	 * @param start
+	 * @param end
+	 * @return
+	 */
 	public static IntBST recurBinaryTree(int[] a, int start, int end){
 		// Base case
-		if (start>end)
+		if (start > end)
 			return null;
 
+		// New instance of tree
 		IntBST tree = new IntBST();
 
+		// Calculate the mid point and assign the root
 		int mid = (start + end)/2;
 		Node root = tree.addRoot(a[mid]);
+
+		// Calculate the left and right subtrees
 		IntBST leftTree = recurBinaryTree(a, start, mid -1);
 		IntBST rightTree = recurBinaryTree(a, mid + 1, end);
 
-		if (leftTree!=null) {
+		// Add the left tree to the root
+		if (leftTree != null) {
 			root.setLeft(leftTree.root);
 			tree.size += leftTree.size;
 		}
 
+		// Add the right tree to the root
 		if (rightTree != null) {
 			root.setRight(rightTree.root);
 			tree.size += rightTree.size;
 		}
 
-
+		// Return the tree
 		return tree;
 	}
 }
