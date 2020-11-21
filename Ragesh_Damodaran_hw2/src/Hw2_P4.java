@@ -19,30 +19,26 @@ public class Hw2_P4 {
             return;
         }
 
-        // create a target to half of number of elements
-        int target = (n-1)/2;
-        recurseReverse(a, target, n-1, 0);
+        // Call recursive function
+        recurseReverse(a, n-1, 0);
 
     }
 
     /**
      * Recursively reverses portion of an array
      * @param a : Array
-     * @param target : base case limit
      * @param upper : upper index of swap
      * @param lower : lower index of swap
      */
-    private static void recurseReverse(int[] a, int target, int upper, int lower) {
+    private static void recurseReverse(int[] a, int upper, int lower) {
         // Base case
-        if (upper <= target)
-            return;
-        else{
+        if (lower<upper){
             // swap the upper element and lower index elements
             int temp = a[lower];
             a[lower] = a[upper];
             a[upper] = temp;
             // Recursive call
-            recurseReverse(a, target, upper-1, lower+1);
+            recurseReverse(a, upper-1, lower+1);
         }
     }
 
