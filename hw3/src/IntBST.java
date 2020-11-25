@@ -71,8 +71,8 @@ public class IntBST extends NodeBinaryTree<Integer> {
 			snapshot.add(right(n)); return snapshot; 
 	}
 	
-	public int height(Node<Integer> n) throws IllegalArgumentException { 
-		if (isExternal(n)) { return 0; } 
+	public int height(Node<Integer> n) throws IllegalArgumentException {
+		if (isExternal(n)) { return 0; }
 		int h = 0; // base case if p is external
 		for (Node<Integer> c : children(n)) h = Math.max(h, height(c)); return h + 1; 
 	}
