@@ -6,12 +6,15 @@ public class Hw4_P6 {
      * @param args
      */
     public static void main(String[] args){
+
         // Declare Constants
         final int ARRAY_SIZE = 100000;
+        final int LOOP_CNT = 10;
+
         // Declare the variables
-        HashMap myMap = new HashMap();
-        ArrayList myArrayList = new ArrayList();
-        LinkedList myLinkedList = new LinkedList();
+        HashMap myMap ;
+        ArrayList myArrayList ;
+        LinkedList myLinkedList ;
         int[] insertKeys = new int[ARRAY_SIZE];
         int[] searchKeys = new int[ARRAY_SIZE];
         long startTime, endTime, elapsedTime;
@@ -22,8 +25,13 @@ public class Hw4_P6 {
         Random r = new Random(System.currentTimeMillis() );
 
         // Run the operations 10 times
-        for (int j = 0; j < 10; j++) {
+        for (int j = 0; j < LOOP_CNT; j++) {
+            System.out.println("Loop "+ j + " -> " + new Date());
 
+            //Reinitialise variables
+            myMap = new HashMap();
+            myArrayList = new ArrayList();
+            myLinkedList = new LinkedList();
             // Reseed the random
             r.setSeed(System.currentTimeMillis());
             // Populate the insertKeys
@@ -89,13 +97,13 @@ public class Hw4_P6 {
 
         // Print the output
         System.out.printf("Number of keys = %d\n\n", ARRAY_SIZE);
-        System.out.printf("HashMap average total insert time = %.2f\n", totalMapInsertTime/10);
-        System.out.printf("ArrayList average total insert time = %.2f\n", totalArrayListInsertTime/10);
-        System.out.printf("LinkedList average total insert time = %.2f\n\n", totalLinkedListInsertTime/10);
+        System.out.printf("HashMap average total insert time = %.2f ms \n", (double)totalMapInsertTime/LOOP_CNT);
+        System.out.printf("ArrayList average total insert time = %.2f ms\n", (double)totalArrayListInsertTime/LOOP_CNT);
+        System.out.printf("LinkedList average total insert time = %.2f ms\n\n", (double)totalLinkedListInsertTime/LOOP_CNT);
 
-        System.out.printf("HashMap average total search time = %.2f\n", totalMapSearchTime/10);
-        System.out.printf("ArrayList average total search time = %.2f\n", totalArrayListSearchTime/10);
-        System.out.printf("LinkedList average total search time = %.2f\n\n", totalLinkedListSearchTime/10);
+        System.out.printf("HashMap average total search time = %.2f ms\n", (double)totalMapSearchTime/LOOP_CNT);
+        System.out.printf("ArrayList average total search time = %.2f ms \n", (double)totalArrayListSearchTime/LOOP_CNT);
+        System.out.printf("LinkedList average total search time = %.2f ms \n", (double)totalLinkedListSearchTime/LOOP_CNT);
 
 
     }
