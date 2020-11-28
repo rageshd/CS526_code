@@ -36,7 +36,7 @@ public class Hw4_P6 {
             r.setSeed(System.currentTimeMillis());
             // Populate the insertKeys
             for (int i = 0; i < ARRAY_SIZE; i++)
-                insertKeys[i] = r.nextInt(ARRAY_SIZE) + 1;
+                insertKeys[i] = r.nextInt(1000000) + 1;
 
             // Insert into map
             startTime = System.currentTimeMillis();
@@ -67,7 +67,7 @@ public class Hw4_P6 {
 
             // Generate random integers and populate the searchKeys array
             for (int i = 0; i < ARRAY_SIZE; i++)
-                searchKeys[i] = r.nextInt(2*ARRAY_SIZE) + 1;
+                searchKeys[i] = r.nextInt(2000000) + 1;
 
             // Search in map
             startTime = System.currentTimeMillis();

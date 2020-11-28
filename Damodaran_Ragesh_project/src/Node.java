@@ -4,5 +4,6 @@ public class Node {
     char letter;
     List<Edge> edges;
     int distanceFromZ;
+    boolean visited;
 
 }
