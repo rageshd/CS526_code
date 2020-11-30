@@ -15,6 +15,7 @@ public class Hw4_P6 {
         HashMap myMap ;
         ArrayList myArrayList ;
         LinkedList myLinkedList ;
+        HashSet duplicateDetectionSet;
         int[] insertKeys = new int[ARRAY_SIZE];
         int[] searchKeys = new int[ARRAY_SIZE];
         long startTime, endTime, elapsedTime;
@@ -32,12 +33,22 @@ public class Hw4_P6 {
             myMap = new HashMap();
             myArrayList = new ArrayList();
             myLinkedList = new LinkedList();
+
             // Reseed the random
             r.setSeed(System.currentTimeMillis());
             // Populate the insertKeys
-            for (int i = 0; i < ARRAY_SIZE; i++)
-                insertKeys[i] = r.nextInt(1000000) + 1;
-
+            duplicateDetectionSet = new HashSet();
+            int k=0;
+            while(k < ARRAY_SIZE) {
+                int randomNum = r.nextInt(1000000) + 1;
+                // Check if the random number was already present
+                if (!duplicateDetectionSet.contains(randomNum)) {
+                    insertKeys[k] = randomNum;
+                    duplicateDetectionSet.add(randomNum);
+                    k++;
+                }
+            }
+            System.out.println(duplicateDetectionSet.size());
             // Insert into map
             startTime = System.currentTimeMillis();
             for (int i : insertKeys)
@@ -62,12 +73,25 @@ public class Hw4_P6 {
             elapsedTime = endTime - startTime;
             totalLinkedListInsertTime += elapsedTime;
 
+            System.out.printf("Size of map is %d, size of arraylist is %d and size of linkedlist is %d \n",
+                    myMap.size(), myArrayList.size(), myLinkedList.size());
+
             // Reseed the random
             r.setSeed(System.currentTimeMillis());
 
             // Generate random integers and populate the searchKeys array
-            for (int i = 0; i < ARRAY_SIZE; i++)
-                searchKeys[i] = r.nextInt(2000000) + 1;
+            duplicateDetectionSet = new HashSet();
+            k=0;
+            while(k < ARRAY_SIZE) {
+                int randomNum = r.nextInt(2000000) + 1;
+                // Check if the random number was already present
+                if (!duplicateDetectionSet.contains(randomNum)) {
+                    searchKeys[k] = randomNum;
+                    duplicateDetectionSet.add(randomNum);
+                    k++;
+                }
+            }
+
 
             // Search in map
             startTime = System.currentTimeMillis();

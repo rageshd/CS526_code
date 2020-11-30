@@ -1,4 +1,14 @@
+import java.util.Arrays;
+
 public class Edge {
     int distance;
-    Node[] nodes = new Node[2];
+    char[] nodeLetters;
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "distance=" + distance +
+                ", nodeLetters=" + Arrays.toString(nodeLetters) +
+                '}';
+    }
 }
