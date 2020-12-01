@@ -15,4 +15,15 @@ public class Node {
                 ", visited=" + visited +
                 '}';
     }
+
+    public Edge getEdge(Node nextNode){
+        Edge edge = null;
+        for (Edge e : this.edges){
+            if (e.destNodeLetter == nextNode.letter){
+                edge = e;
+                break;
+            }
+        }
+        return edge;
+    }
 }

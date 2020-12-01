@@ -8,10 +8,11 @@ public class GraphHelper {
     public static void main(String[] args) throws IOException {
         GraphHelper gh = new GraphHelper();
         gh.loadGraph();
-        Stack<Node> pathStack = gh.traverseGraph('J', 'Z', 1);
-        while(!pathStack.isEmpty()){
-            System.out.println(pathStack.pop());
-        }
+        Stack<Node> pathStack = gh.traverseGraph('G', 'Z', 2);
+        List<Node> pathList = gh.stackToList(pathStack);
+        System.out.println(gh.graphAsString(pathList));
+        System.out.println(gh.findDistanceOfPath(pathList));
+
     }
 
     /**
@@ -65,13 +66,16 @@ public class GraphHelper {
         }
         br2.close();
 
-//        for (Node n : charNodeMap.values())
-//            System.out.println(n);
-
     }
 
 
-
+    /**
+     * Traverse the graph from start node to end
+     * @param start
+     * @param end
+     * @param algo
+     * @return
+     */
     public Stack<Node> traverseGraph(char start, char end, int algo){
         Node currentNode = charNodeMap.get(start);
         // Stack to keep trace of traversals
@@ -120,11 +124,47 @@ public class GraphHelper {
 
 
         }
+        if (currentNode.letter == end)
+            s.push(currentNode);
         return s;
     }
 
-    public void traverseGraphAlgo2(char start, char end){
+
+    /**
+     * print the node list as a connected graph
+     * @param l
+     */
+    public String graphAsString(List<Node> l){
+        String retString="";
+        for (int i =0; i<l.size()-1;i++)
+            retString+=l.get(i).letter + "->";
+
+        retString+=l.get(l.size()-1).letter;
+        return retString;
+    }
+
+    public List<Node> stackToList(Stack<Node> s){
+        Stack<Node> temp = new Stack<>();
+        List<Node> ret = new ArrayList<>();
+        while(!s.isEmpty())
+            temp.push(s.pop());
+        while(!temp.isEmpty())
+            ret.add(temp.pop());
+
+        return ret;
 
     }
+
+    public int findDistanceOfPath(List<Node> nodeList){
+        int totalDist=0;
+        for (int i=0;i<nodeList.size()-1;i++){
+            Node nextNode = nodeList.get(i+1);
+            Node currNode = nodeList.get(i);
+            Edge nextEdge = currNode.getEdge(nextNode);
+            totalDist+=nextEdge.distance;
+        }
+        return totalDist;
+    }
+
 
 }
