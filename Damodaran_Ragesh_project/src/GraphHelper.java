@@ -8,10 +8,8 @@ public class GraphHelper {
     public static void main(String[] args) throws IOException {
         GraphHelper gh = new GraphHelper();
         gh.loadGraph();
-        Stack<Node> pathStack = gh.traverseGraph('G', 'Z', 2);
-        List<Node> pathList = gh.stackToList(pathStack);
-        System.out.println(gh.graphAsString(pathList));
-        System.out.println(gh.findDistanceOfPath(pathList));
+
+        gh.traverseGraph('G', 'Z', 2);
 
     }
 
@@ -76,10 +74,13 @@ public class GraphHelper {
      * @param algo
      * @return
      */
-    public Stack<Node> traverseGraph(char start, char end, int algo){
+    public void traverseGraph(char start, char end, int algo){
         Node currentNode = charNodeMap.get(start);
         // Stack to keep trace of traversals
         Stack<Node> s = new Stack<Node>();
+
+        // List to keep track of all nodes visited
+        List<Node> allVisitedNodeList = new ArrayList<Node>();
         // Keep looping till we get to the end node
         while(currentNode.letter != end){
 //            System.out.println(currentNode);
@@ -88,6 +89,8 @@ public class GraphHelper {
             currentNode.visited = true;
             // Push node to stack
             s.push(currentNode);
+            // Push node to list
+            allVisitedNodeList.add(currentNode);
             // Boolean variable to check if there are any visitable nodes from current node
             boolean hasVisitableChildren = false;
             int minDistance = Integer.MAX_VALUE;
@@ -124,9 +127,16 @@ public class GraphHelper {
 
 
         }
-        if (currentNode.letter == end)
+        if (currentNode.letter == end) {
             s.push(currentNode);
-        return s;
+            allVisitedNodeList.add(currentNode);
+        }
+
+        // Print the output
+        List<Node> pathList = stackToList(s);
+        System.out.println("Sequence of all nodes: "+ graphAsString(allVisitedNodeList));
+        System.out.println("Shortest path: "+ graphAsString(pathList));
+        System.out.println("Shortest path length: "+findDistanceOfPath(pathList));
     }
 
 
