@@ -8,6 +8,10 @@ public class GraphHelper {
     public static void main(String[] args) throws IOException {
         GraphHelper gh = new GraphHelper();
         gh.loadGraph();
+        Stack<Node> pathStack = gh.traverseGraphAlgo1('A', 'Z');
+        while(!pathStack.isEmpty()){
+            System.out.println(pathStack.pop());
+        }
     }
 
     /**
@@ -38,10 +42,7 @@ public class GraphHelper {
                     if (Integer.parseInt(lineSplit[i])>0){
                         Edge e = new Edge();
                         e.distance = Integer.parseInt(lineSplit[i]);
-                        char[] nodeLetters = new char[2];
-                        nodeLetters[0] = letter;
-                        nodeLetters[1] = charArray[i-1];
-                        e.nodeLetters = nodeLetters;
+                        e.destNodeLetter = charArray[i-1];
                         edgeList.add(e);
                     }
                 }
@@ -71,12 +72,50 @@ public class GraphHelper {
 
 
 
-    public void traverseGraphAlgo1(char start, char end){
+    public Stack<Node> traverseGraphAlgo1(char start, char end){
         Node currentNode = charNodeMap.get(start);
+        // Stack to keep trace of traversals
         Stack<Node> s = new Stack<Node>();
+        // Keep looping till we get to the end node
         while(currentNode.letter != end){
-            for ()
+            System.out.println(currentNode);
+            Node nextNode = null;
+            // Set the current node to visited
+            currentNode.visited = true;
+            // Push node to stack
+            s.push(currentNode);
+            // Boolean variable to check if there are any visitable nodes from current node
+            boolean hasVisitableChildren = false;
+            int minDistance = Integer.MAX_VALUE;
+            // Loop thru all the edges
+            for (Edge e: currentNode.edges){
+                char edgeLetter = e.destNodeLetter;
+                Node edgeNode = charNodeMap.get(edgeLetter);
+                // Consider the node the edge connects to in case its not already visited and its not the parent
+                if (!edgeNode.visited) {
+                    // If the node is at a lesser ditance that the previous least then consider that
+                    if (e.distance < minDistance) {
+                        minDistance = e.distance;
+                        nextNode = charNodeMap.get(edgeLetter);
+                        hasVisitableChildren = true;
+                    }
+                }
+            }
+            // In case there are no visitable nodes
+            if (!hasVisitableChildren){
+                s.pop();
+                if (!s.empty()){
+                    currentNode = s.pop();
+                }
+                else
+                    break;
+            }
+            else
+                currentNode = nextNode;
+
+
         }
+        return s;
     }
 
     public void traverseGraphAlgo2(char start, char end){
