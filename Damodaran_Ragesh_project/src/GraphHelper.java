@@ -8,7 +8,7 @@ public class GraphHelper {
     public static void main(String[] args) throws IOException {
         GraphHelper gh = new GraphHelper();
         gh.loadGraph();
-        Stack<Node> pathStack = gh.traverseGraphAlgo1('A', 'Z');
+        Stack<Node> pathStack = gh.traverseGraph('J', 'Z', 1);
         while(!pathStack.isEmpty()){
             System.out.println(pathStack.pop());
         }
@@ -72,13 +72,13 @@ public class GraphHelper {
 
 
 
-    public Stack<Node> traverseGraphAlgo1(char start, char end){
+    public Stack<Node> traverseGraph(char start, char end, int algo){
         Node currentNode = charNodeMap.get(start);
         // Stack to keep trace of traversals
         Stack<Node> s = new Stack<Node>();
         // Keep looping till we get to the end node
         while(currentNode.letter != end){
-            System.out.println(currentNode);
+//            System.out.println(currentNode);
             Node nextNode = null;
             // Set the current node to visited
             currentNode.visited = true;
@@ -92,10 +92,15 @@ public class GraphHelper {
                 char edgeLetter = e.destNodeLetter;
                 Node edgeNode = charNodeMap.get(edgeLetter);
                 // Consider the node the edge connects to in case its not already visited and its not the parent
-                if (!edgeNode.visited) {
+                if (!edgeNode.visited && e.distance!=0) {
+                    int distance=0;
+                    if (algo==1)
+                        distance = edgeNode.distanceFromZ;
+                    else if (algo==2)
+                        distance = e.distance + edgeNode.distanceFromZ;
                     // If the node is at a lesser ditance that the previous least then consider that
-                    if (e.distance < minDistance) {
-                        minDistance = e.distance;
+                    if (distance < minDistance) {
+                        minDistance = distance;
                         nextNode = charNodeMap.get(edgeLetter);
                         hasVisitableChildren = true;
                     }
