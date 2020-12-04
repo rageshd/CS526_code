@@ -11,7 +11,8 @@ public class Hw5_P6<T> {
                 return o1>o2?1:-1;
             }
         };
-        sort.quickSortInPlace(a, in, 0, a.length-1);
+//        sort.quickSortInPlace(a, in, 0, a.length-1);
+        sort.heapSort(a);
         for (Integer i : a)
             System.out.println(i);
 
