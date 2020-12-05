@@ -19,7 +19,7 @@ public class GraphHelper {
      */
     public void loadGraph() throws IOException {
         // Load the graph input file1
-        File file1 = new File("/Users/ragesh/Documents/Boston/CS526/CS526_code/Damodaran_Ragesh_project/resources/graph_input.txt");
+        File file1 = new File("/Users/ragesh/Documents/Boston/CS526/CS526_code/Damodaran_Ragesh_project/resources/graph_input1.txt");
         BufferedReader br1 = new BufferedReader(new FileReader(file1));
         String st1;
         char[] charArray = new char[27];
@@ -146,6 +146,8 @@ public class GraphHelper {
      */
     public String graphAsString(List<Node> l){
         String retString="";
+        if (l.size()<=0)
+            return "No Path";
         for (int i =0; i<l.size()-1;i++)
             retString+=l.get(i).letter + "->";
 
