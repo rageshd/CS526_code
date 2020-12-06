@@ -9,7 +9,7 @@ public class Sorting<K> {
      * InsertionSort
      * @param data
      */
-    public  void insertionSort(int[] data) {
+    public  void insertionSort(Integer[] data) {
         int n = data.length;
         for (int k = 1; k < n; k++) {
 // begin with second character /
