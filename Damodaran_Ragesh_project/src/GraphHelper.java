@@ -3,13 +3,24 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class GraphHelper {
+    // Declare constants
+    final static String GRAPH_INPUT_FILE = "/Users/ragesh/Documents/Boston/CS526/CS526_code/Damodaran_Ragesh_project/resources/graph_input1.txt";
+    final static String DIRECT_DISTANCE = "/Users/ragesh/Documents/Boston/CS526/CS526_code/Damodaran_Ragesh_project/resources/direct_distance.txt";
+    final static char FINAL_CHAR = 'Z';
+
+    // Global variable for mapping char to node
     Map<Character, Node> charNodeMap = new HashMap<Character, Node>();
 
+    /**
+     * Main program
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         GraphHelper gh = new GraphHelper();
         gh.loadGraph();
 
-        gh.traverseGraph('G', 'Z', 2);
+        gh.traverseGraph('G', FINAL_CHAR, 2);
 
     }
 
@@ -19,7 +30,7 @@ public class GraphHelper {
      */
     public void loadGraph() throws IOException {
         // Load the graph input file1
-        File file1 = new File("/Users/ragesh/Documents/Boston/CS526/CS526_code/Damodaran_Ragesh_project/resources/graph_input1.txt");
+        File file1 = new File(GRAPH_INPUT_FILE);
         BufferedReader br1 = new BufferedReader(new FileReader(file1));
         String st1;
         char[] charArray = new char[27];
@@ -53,7 +64,7 @@ public class GraphHelper {
         br1.close();
 
         // Load the direct distance file
-        File file2 = new File("/Users/ragesh/Documents/Boston/CS526/CS526_code/Damodaran_Ragesh_project/resources/direct_distance.txt");
+        File file2 = new File(DIRECT_DISTANCE);
         BufferedReader br2 = new BufferedReader(new FileReader(file2));
         String st2;
         while ((st2 = br2.readLine()) != null){
@@ -155,6 +166,11 @@ public class GraphHelper {
         return retString;
     }
 
+    /**
+     * Convert stack to list
+     * @param s
+     * @return
+     */
     public List<Node> stackToList(Stack<Node> s){
         Stack<Node> temp = new Stack<>();
         List<Node> ret = new ArrayList<>();
@@ -167,6 +183,11 @@ public class GraphHelper {
 
     }
 
+    /**
+     * find distance of the path
+     * @param nodeList
+     * @return
+     */
     public int findDistanceOfPath(List<Node> nodeList){
         int totalDist=0;
         for (int i=0;i<nodeList.size()-1;i++){
