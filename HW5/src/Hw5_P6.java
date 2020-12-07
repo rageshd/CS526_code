@@ -3,6 +3,10 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class Hw5_P6<T> {
+    /**
+     * Main method
+     * @param args
+     */
     public static void main(String[] args) {
         Integer[] a = {10, 9, 8, 7, 6, 5};
         Sorting<Integer> sort = new Sorting<Integer>();

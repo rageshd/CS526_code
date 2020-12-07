@@ -95,14 +95,6 @@ public class Sorting<K> {
     }
 
 
-//    public void heapSort(Integer[] arr){
-//        PriorityQueue<Integer> minHeap=new PriorityQueue<Integer>();
-//        for (int i: arr)
-//            minHeap.add(i);
-//        int j=0;
-//        while(!minHeap.isEmpty())
-//            arr[j++] = minHeap.poll();
-//    }
 
     /**
      * Heapsort from https://www.geeksforgeeks.org/java-program-for-heap-sort/
