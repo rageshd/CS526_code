@@ -44,8 +44,8 @@ public class Hw6_P5 {
         for (int i=0; i<adjacencyMatrix.length; i++)
             for (int j=0; j<adjacencyMatrix[i].length; j++)
                 adjacencyMatrix[i][j]=0;
-
-
+            
+        // Populate the adjacency matrix
         for (Map.Entry<String,HashSet<String>> entry : friendMap.entrySet()){
             String key = entry.getKey();
             Integer rowIndex = personPos.get(key);
@@ -58,6 +58,73 @@ public class Hw6_P5 {
         }
 
         printAdjacency(adjacencyMatrix, peopleLable);
+
+        while (true){
+            try {
+                // Prompt and get user input
+                Scanner userInput = new Scanner(System.in);
+                System.out.println("Main Menu");
+                System.out.println("Search options:\n1. Friends of a person\n2. Friend or not?\n3. Exit\n");
+                System.out.print("Enter your selection : ");
+                int userSel = userInput.nextInt();
+
+                // User selects 1
+                if (userSel == 1){
+                    List<String> personsFriends = new ArrayList<String>();
+                    System.out.print("Enter name : ");
+                    String userName = userInput.next();
+                    if (personPos.containsKey(userName)){
+
+                        int personIndex = personPos.get(userName);
+                        for (int i=0; i<adjacencyMatrix[personIndex].length;i++)    {
+                            if (adjacencyMatrix[personIndex][i] == 1){
+                                personsFriends.add(peopleLable.get(i));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("user entered does not exist, try again");
+                        continue;
+                    }
+                    System.out.printf("%s's friends are : %s\n",userName,getListAsCsvString(personsFriends));
+                    continue;
+                }
+                // User selects 2
+                else if (userSel == 2){
+                    System.out.print("Enter the 2 names separated by a space: ");
+                    String firstName = userInput.next();
+                    String secondName = userInput.next();
+//                    System.out.println(names);
+//                    String firstName = names.split(" ")[0];
+//                    String secondName = names.split(" ")[1];
+                    if (personPos.containsKey(firstName) && personPos.containsKey(secondName)){
+                        if (adjacencyMatrix[personPos.get(firstName)][personPos.get(secondName)] == 1)
+                            System.out.println("Yes");
+                        else
+                            System.out.println("No");
+                    }
+                    else{
+                        System.out.println("The users entered do not exist , try again");
+
+                    }
+                    continue;
+                }
+                else if (userSel == 3){
+                    System.out.println("Thank you , and have a great day!!");
+                    break;
+                }
+                else{
+                    System.out.println("Incorrect selection, please enter 1,2 or 3");
+                    continue;
+                }
+
+            }catch (Exception e)
+            {
+                System.out.println("Incorrect user input , try again");
+                continue;
+            }
+        }
 
     }
 
@@ -73,5 +140,16 @@ public class Hw6_P5 {
                 System.out.print(String.format("%1$-" + 10 + "s",adjacencyMatrix[i][j]==0?" ":1));
             System.out.println();
         }
+    }
+
+    public static String getListAsCsvString(List<String> list){
+        StringBuilder sb = new StringBuilder();
+        for(String str:list){
+            if(sb.length() != 0){
+                sb.append(",");
+            }
+            sb.append(str);
+        }
+        return sb.toString();
     }
 }
