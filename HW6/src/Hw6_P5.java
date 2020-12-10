@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Hw6_P5 {
     private static final String FRIEND_INPUT = "/Users/ragesh/Documents/Boston/CS526/metcs526_Assignment6/friends_input.txt";
-
+    static ArrayList<String> peopleLable;
     public static void main(String[] args) throws IOException {
         HashMap<String,HashSet<String>> friendMap = new HashMap<String, HashSet<String>>();
         HashSet<String> uniquePeople = new HashSet<String>();
@@ -30,7 +30,7 @@ public class Hw6_P5 {
         }
 
         // Convert uniquePeople hashset to label array
-        ArrayList<String> peopleLable = new ArrayList<String>(uniquePeople);
+        peopleLable = new ArrayList<String>(uniquePeople);
         Collections.sort(peopleLable);
 
         // Create a person to array position label
@@ -56,6 +56,9 @@ public class Hw6_P5 {
                 adjacencyMatrix[colIndex][rowIndex]=1;
             }
         }
+
+        // populate friend of friend
+        friendOfFriend(adjacencyMatrix,0 ,-1);
 
         printAdjacency(adjacencyMatrix, peopleLable);
 
@@ -137,7 +140,7 @@ public class Hw6_P5 {
         for (int i=0;i< adjacencyMatrix.length ; i++) {
             System.out.print(String.format("%1$-" + 10 + "s",lables.get(i) ));
             for (int j=0; j<adjacencyMatrix[i].length;j++)
-                System.out.print(String.format("%1$-" + 10 + "s",adjacencyMatrix[i][j]==0?" ":1));
+                System.out.print(String.format("%1$-" + 10 + "s",adjacencyMatrix[i][j]==0?" ":adjacencyMatrix[i][j]));
             System.out.println();
         }
     }
@@ -151,5 +154,25 @@ public class Hw6_P5 {
             sb.append(str);
         }
         return sb.toString();
+    }
+
+    public static void friendOfFriend(int[][] adjacencyMatrix, int row, int parentRow){
+        int rowLabeler = parentRow+10;
+        System.out.println("parentRow:" + parentRow + ",row : "+ row);
+        printAdjacency(adjacencyMatrix, peopleLable);
+        for (int i=0; i<adjacencyMatrix[row].length; i++){
+            if (adjacencyMatrix[row][i]>0 && adjacencyMatrix[row][i]!=rowLabeler) {
+                if (parentRow==0 && row==6 )
+                    System.out.println("test: "+ i);
+                if (parentRow!=-1 && adjacencyMatrix[parentRow][i]==0 && adjacencyMatrix[i][parentRow]==0 && i!=parentRow){
+                    adjacencyMatrix[parentRow][i]=1;
+                    adjacencyMatrix[i][parentRow]=1;
+                }
+                if (parentRow!=-1)
+                    adjacencyMatrix[row][i] = rowLabeler;
+                friendOfFriend(adjacencyMatrix, i, row);
+            }
+
+        }
     }
 }
