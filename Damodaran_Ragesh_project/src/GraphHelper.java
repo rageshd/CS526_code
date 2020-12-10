@@ -144,7 +144,7 @@ public class GraphHelper {
                         distance = edgeNode.distanceFromZ;
                     else if (algo==2)
                         distance = e.distance + edgeNode.distanceFromZ;
-                    // If the node is at a lesser ditance that the previous least then consider that
+                    // If the node is at a lesser distance that the previous least then consider that
                     if (distance < minDistance) {
                         minDistance = distance;
                         nextNode = charNodeMap.get(edgeLetter);
