@@ -4,7 +4,7 @@ import java.util.*;
 
 public class GraphHelper {
     // Declare constants
-    final static String GRAPH_INPUT_FILE = "/Users/ragesh/Documents/Boston/CS526/CS526_code/Damodaran_Ragesh_project/resources/graph_input1.txt";
+    final static String GRAPH_INPUT_FILE = "/Users/ragesh/Documents/Boston/CS526/CS526_code/Damodaran_Ragesh_project/resources/graph_input.txt";
     final static String DIRECT_DISTANCE = "/Users/ragesh/Documents/Boston/CS526/CS526_code/Damodaran_Ragesh_project/resources/direct_distance.txt";
     final static char FINAL_CHAR = 'Z';
 
@@ -19,8 +19,36 @@ public class GraphHelper {
     public static void main(String[] args) throws IOException {
         GraphHelper gh = new GraphHelper();
         gh.loadGraph();
+        Character startChar = null;
+        // Get user Input in a loop checking for incorrect input
+        while(true){
+            System.out.print("Enter your start node letter : ");
+            Scanner userInput = new Scanner(System.in);
+            String userInputStr = userInput.next();
+            //Check if the input is a single character
+            if (userInputStr.length()!=1){
+                System.out.println("Incorrect input, please enter an alphabet in upper case");
+                continue;
+            }
+            startChar = userInputStr.charAt(0);
+            if (!gh.charNodeMap.containsKey(startChar)){
+                System.out.println("Incorrect input, please enter existing nodes");
+                continue;
+            }
+            else
+                break;
 
-        gh.traverseGraph('G', FINAL_CHAR, 2);
+        }
+        System.out.printf("User enters node %c as the start node\n",startChar);
+        // Traverse with algorithm 1
+        System.out.println("Algorithm 1: ");
+        gh.traverseGraph(startChar, FINAL_CHAR, 1);
+
+        // Clear out any remnants from previous traversal
+        gh.loadGraph();
+        // Traverse with algorithm 2
+        System.out.println("Algorithm 2: ");
+        gh.traverseGraph(startChar, FINAL_CHAR, 2);
 
     }
 
