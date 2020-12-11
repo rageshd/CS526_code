@@ -9,7 +9,7 @@ public class GraphHelper {
     final static char FINAL_CHAR = 'Z';
 
     // Global variable for mapping char to node
-    Map<Character, Node> charNodeMap = new HashMap<Character, Node>();
+    HashMap<Character, Node> charNodeMap = new HashMap<Character, Node>();
 
     /**
      * Main program
