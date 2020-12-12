@@ -57,8 +57,6 @@ public class Hw6_P5 {
             }
         }
 
-        // populate friend of friend
-        friendOfFriend(adjacencyMatrix,0 ,-1);
 
         printAdjacency(adjacencyMatrix, peopleLable);
 
@@ -73,7 +71,7 @@ public class Hw6_P5 {
 
                 // User selects 1
                 if (userSel == 1){
-                    List<String> personsFriends = new ArrayList<String>();
+                    HashSet<String> personsFriends = new HashSet<String>();
                     System.out.print("Enter name : ");
                     String userName = userInput.next();
                     if (personPos.containsKey(userName)){
@@ -82,6 +80,10 @@ public class Hw6_P5 {
                         for (int i=0; i<adjacencyMatrix[personIndex].length;i++)    {
                             if (adjacencyMatrix[personIndex][i] == 1){
                                 personsFriends.add(peopleLable.get(i));
+                                for (int j=0; j<adjacencyMatrix[i].length;j++){
+                                    if (adjacencyMatrix[i][j] == 1 && j!=personIndex)
+                                        personsFriends.add(peopleLable.get(j));
+                                }
                             }
                         }
                     }
@@ -90,7 +92,7 @@ public class Hw6_P5 {
                         System.out.println("user entered does not exist, try again");
                         continue;
                     }
-                    System.out.printf("%s's friends are : %s\n",userName,getListAsCsvString(personsFriends));
+                    System.out.printf("%s's friends are : %s\n",userName,getSetAsCsvString(personsFriends));
                     continue;
                 }
                 // User selects 2
@@ -98,11 +100,27 @@ public class Hw6_P5 {
                     System.out.print("Enter the 2 names separated by a space: ");
                     String firstName = userInput.next();
                     String secondName = userInput.next();
-//                    System.out.println(names);
-//                    String firstName = names.split(" ")[0];
-//                    String secondName = names.split(" ")[1];
+                    boolean isFriend=false;
                     if (personPos.containsKey(firstName) && personPos.containsKey(secondName)){
-                        if (adjacencyMatrix[personPos.get(firstName)][personPos.get(secondName)] == 1)
+                        int firstIndex = personPos.get(firstName);
+                        int secondIndex = personPos.get(secondName);
+                        // Check if direct friend
+                        if (adjacencyMatrix[firstIndex][secondIndex] == 1)
+                            isFriend=true;
+                        //Check for indirect friends
+                        else
+                        {
+                            for (int i=0; i<adjacencyMatrix[firstIndex].length; i++){
+                                if (adjacencyMatrix[firstIndex][i] == 1){
+                                    if (adjacencyMatrix[i][secondIndex]==1) {
+                                        isFriend = true;
+                                        break;
+                                    }
+                                }
+
+                            }
+                        }
+                        if (isFriend)
                             System.out.println("Yes");
                         else
                             System.out.println("No");
@@ -114,7 +132,7 @@ public class Hw6_P5 {
                     continue;
                 }
                 else if (userSel == 3){
-                    System.out.println("Thank you , and have a great day!!");
+                    System.out.println("Thank you, and have a great day!!");
                     break;
                 }
                 else{
@@ -145,9 +163,9 @@ public class Hw6_P5 {
         }
     }
 
-    public static String getListAsCsvString(List<String> list){
+    public static String getSetAsCsvString(HashSet<String> set){
         StringBuilder sb = new StringBuilder();
-        for(String str:list){
+        for(String str: set){
             if(sb.length() != 0){
                 sb.append(",");
             }
@@ -156,23 +174,23 @@ public class Hw6_P5 {
         return sb.toString();
     }
 
-    public static void friendOfFriend(int[][] adjacencyMatrix, int row, int parentRow){
-        int rowLabeler = parentRow+10;
-        System.out.println("parentRow:" + parentRow + ",row : "+ row);
-        printAdjacency(adjacencyMatrix, peopleLable);
-        for (int i=0; i<adjacencyMatrix[row].length; i++){
-            if (adjacencyMatrix[row][i]>0 && adjacencyMatrix[row][i]!=rowLabeler) {
-                if (parentRow==0 && row==6 )
-                    System.out.println("test: "+ i);
-                if (parentRow!=-1 && adjacencyMatrix[parentRow][i]==0 && adjacencyMatrix[i][parentRow]==0 && i!=parentRow){
-                    adjacencyMatrix[parentRow][i]=1;
-                    adjacencyMatrix[i][parentRow]=1;
-                }
-                if (parentRow!=-1)
-                    adjacencyMatrix[row][i] = rowLabeler;
-                friendOfFriend(adjacencyMatrix, i, row);
-            }
-
-        }
-    }
+//    public static void friendOfFriend(int[][] adjacencyMatrix, int row, int parentRow){
+//        int rowLabeler = parentRow+10;
+//        System.out.println("parentRow:" + parentRow + ",row : "+ row);
+//        printAdjacency(adjacencyMatrix, peopleLable);
+//        for (int i=0; i<adjacencyMatrix[row].length; i++){
+//            if (adjacencyMatrix[row][i]>0 && adjacencyMatrix[row][i]!=rowLabeler) {
+//                if (parentRow==0 && row==6 )
+//                    System.out.println("test: "+ i);
+//                if (parentRow!=-1 && adjacencyMatrix[parentRow][i]==0 && adjacencyMatrix[i][parentRow]==0 && i!=parentRow){
+//                    adjacencyMatrix[parentRow][i]=1;
+//                    adjacencyMatrix[i][parentRow]=1;
+//                }
+//                if (parentRow!=-1)
+//                    adjacencyMatrix[row][i] = rowLabeler;
+//                friendOfFriend(adjacencyMatrix, i, row);
+//            }
+//
+//        }
+//    }
 }
