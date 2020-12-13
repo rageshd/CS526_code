@@ -116,7 +116,7 @@ public class GraphHelper {
     public void traverseGraph(char start, char end, int algo){
         Node currentNode = charNodeMap.get(start);
         // Stack to keep trace of traversals
-        Stack<Node> s = new Stack<Node>();
+        Stack<Node> nodeStack = new Stack<Node>();
 
         // List to keep track of all nodes visited
         List<Node> allVisitedNodeList = new ArrayList<Node>();
@@ -127,7 +127,7 @@ public class GraphHelper {
             // Set the current node to visited
             currentNode.visited = true;
             // Push node to stack
-            s.push(currentNode);
+            nodeStack.push(currentNode);
             // Push node to list
             allVisitedNodeList.add(currentNode);
             // Boolean variable to check if there are any visitable nodes from current node
@@ -154,9 +154,9 @@ public class GraphHelper {
             }
             // In case there are no visitable nodes
             if (!hasVisitableChildren){
-                s.pop();
-                if (!s.empty()){
-                    currentNode = s.pop();
+                nodeStack.pop();
+                if (!nodeStack.empty()){
+                    currentNode = nodeStack.pop();
                 }
                 else
                     break;
@@ -167,15 +167,15 @@ public class GraphHelper {
 
         }
         if (currentNode.letter == end) {
-            s.push(currentNode);
+            nodeStack.push(currentNode);
             allVisitedNodeList.add(currentNode);
         }
 
         // Print the output
-        List<Node> pathList = stackToList(s);
-        System.out.println("Sequence of all nodes: "+ graphAsString(allVisitedNodeList));
-        System.out.println("Shortest path: "+ graphAsString(pathList));
-        System.out.println("Shortest path length: "+findDistanceOfPath(pathList));
+        List<Node> pathList = stackToList(nodeStack);
+        System.out.println("    Sequence of all nodes: "+ graphAsString(allVisitedNodeList));
+        System.out.println("    Shortest path: "+ graphAsString(pathList));
+        System.out.println("    Shortest path length: "+findDistanceOfPath(pathList));
     }
 
 
